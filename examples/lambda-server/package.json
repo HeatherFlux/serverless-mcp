@@ -1,0 +1,18 @@
+{
+  "name": "lambda-mcp-server-example",
+  "version": "1.0.0",
+  "description": "AWS Lambda MCP server example using serverless-mcp",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "build": "esbuild index.ts --bundle --platform=node --target=node18 --format=esm --outfile=dist/index.js --external:aws-lambda",
+    "package": "zip -j dist/lambda.zip dist/index.js"
+  },
+  "dependencies": {
+    "serverless-mcp": "workspace:*",
+    "@types/aws-lambda": "^8.10.143"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.2"
+  }
+}

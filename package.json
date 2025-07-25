@@ -1,0 +1,95 @@
+{
+  "name": "serverless-mcp",
+  "version": "0.1.0",
+  "description": "A modern TypeScript package implementing the Model Context Protocol with modular architecture and AWS Lambda streaming support",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./core": {
+      "import": "./dist/core/index.js",
+      "types": "./dist/core/index.d.ts"
+    },
+    "./prompts": {
+      "import": "./dist/prompts/index.js",
+      "types": "./dist/prompts/index.d.ts"
+    },
+    "./resources": {
+      "import": "./dist/resources/index.js",
+      "types": "./dist/resources/index.d.ts"
+    },
+    "./tools": {
+      "import": "./dist/tools/index.js",
+      "types": "./dist/tools/index.d.ts"
+    },
+    "./roots": {
+      "import": "./dist/roots/index.js",
+      "types": "./dist/roots/index.d.ts"
+    },
+    "./transports": {
+      "import": "./dist/transports/index.js",
+      "types": "./dist/transports/index.d.ts"
+    },
+    "./lambda": {
+      "import": "./dist/lambda/index.js",
+      "types": "./dist/lambda/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --platform=node --target=node22 --format=esm --outfile=dist/index.js --external:@aws-sdk/* --external:aws-lambda",
+    "build:all": "pnpm run build:types && pnpm run build:esm",
+    "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist",
+    "build:esm": "esbuild src/**/*.ts --platform=node --target=node18 --format=esm --outdir=dist --external:@aws-sdk/* --external:aws-lambda",
+    "dev": "tsx watch src/index.ts",
+    "test": "vitest run && pnpm tsc --noEmit && pnpm lint",
+    "test:watch": "vitest",
+    "test:coverage": "vitest --coverage",
+    "lint": "biome check src",
+    "lint:fix": "biome check --write src",
+    "format": "biome format --write src",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "json-rpc",
+    "typescript",
+    "serverless",
+    "aws-lambda",
+    "ai",
+    "llm"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/aws-lambda": "^8.10.143",
+    "@types/node": "^22.10.1",
+    "@vitest/coverage-v8": "^2.1.8",
+    "esbuild": "^0.24.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  },
+  "dependencies": {
+    "@aws-sdk/types": "^3.696.0",
+    "zod": "^3.24.1"
+  },
+  "peerDependencies": {
+    "aws-lambda": "*"
+  },
+  "peerDependenciesMeta": {
+    "aws-lambda": {
+      "optional": true
+    }
+  }
+}
