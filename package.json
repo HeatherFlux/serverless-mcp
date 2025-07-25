@@ -43,7 +43,7 @@
     "build": "esbuild src/index.ts --bundle --platform=node --target=node22 --format=esm --outfile=dist/index.js --external:@aws-sdk/* --external:aws-lambda",
     "build:all": "pnpm run build:types && pnpm run build:esm",
     "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist",
-    "build:esm": "esbuild src/**/*.ts --platform=node --target=node18 --format=esm --outdir=dist --external:@aws-sdk/* --external:aws-lambda",
+    "build:esm": "esbuild src/**/*.ts --platform=node --target=node18 --format=esm --outdir=dist",
     "dev": "tsx watch src/index.ts",
     "test": "vitest run && pnpm tsc --noEmit && pnpm lint",
     "test:watch": "vitest",
