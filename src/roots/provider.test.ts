@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { McpRootProvider } from './provider.js';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { InvalidParamsError } from '../core/errors.js';
+import { McpRootProvider } from './provider.js';
 import type { RootDefinition } from './types.js';
 
 describe('McpRootProvider', () => {

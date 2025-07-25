@@ -22,12 +22,12 @@ export function getToolMetadata(target: any): ToolMetadata {
 }
 
 export function tool(options: ToolDecoratorOptions = {}) {
-  return function (target: any, propertyKey: string, descriptor?: PropertyDescriptor) {
+  return (target: any, propertyKey: string, descriptor?: PropertyDescriptor) => {
     // Handle both legacy and modern decorator APIs
     const originalMethod = descriptor?.value ?? target[propertyKey];
 
     if (typeof originalMethod !== 'function') {
-      throw new Error(`@tool can only be applied to methods`);
+      throw new Error('@tool can only be applied to methods');
     }
 
     const toolName = options.name ?? propertyKey;
@@ -72,7 +72,7 @@ export function param(
     maxLength?: number;
   } = {},
 ) {
-  return function (decoratorOptions: ToolDecoratorOptions = {}): ToolDecoratorOptions {
+  return (decoratorOptions: ToolDecoratorOptions = {}): ToolDecoratorOptions => {
     const schema = decoratorOptions.inputSchema ?? {
       type: 'object',
       properties: {},

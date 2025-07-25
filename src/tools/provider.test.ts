@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { InvalidParamsError, ToolExecutionError } from '../core/errors.js';
 import { McpToolProvider } from './provider.js';
 import { DefaultToolRegistry } from './registry.js';
-import { ToolExecutionError, InvalidParamsError } from '../core/errors.js';
 import type { ToolDefinition } from './types.js';
 
 describe('McpToolProvider', () => {

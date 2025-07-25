@@ -1,8 +1,8 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { InvalidParamsError, ResourceNotFoundError } from '../core/errors.js';
+import { MemoryResourceCache } from './cache.js';
 import { McpResourceProvider } from './provider.js';
 import { DefaultResourceRegistry } from './registry.js';
-import { MemoryResourceCache } from './cache.js';
-import { ResourceNotFoundError, InvalidParamsError } from '../core/errors.js';
 import type { ResourceDefinition } from './types.js';
 
 describe('McpResourceProvider', () => {

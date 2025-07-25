@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { PassThrough } from 'node:stream';
-import { StdioTransport } from './stdio.js';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { JsonRpcMessage } from '../core/types.js';
+import { StdioTransport } from './stdio.js';
 
 describe('StdioTransport', () => {
   let mockStdin: PassThrough;
@@ -137,7 +137,7 @@ describe('StdioTransport', () => {
         });
 
         const largeMessage = 'x'.repeat(2 * 1024 * 1024); // 2MB
-        mockStdin.push(largeMessage + '\n');
+        mockStdin.push(`${largeMessage}\n`);
       });
     });
   });

@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { McpProtocol, type Transport } from './protocol.js';
 import type { JsonRpcMessage, JsonRpcRequest, JsonRpcResponse } from './types.js';
 

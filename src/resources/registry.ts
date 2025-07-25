@@ -40,7 +40,7 @@ export class DefaultResourceRegistry implements ResourceRegistry {
     if (!this.subscriptions.has(uri)) {
       this.subscriptions.set(uri, new Set());
     }
-    this.subscriptions.get(uri)!.add(callback);
+    this.subscriptions.get(uri)?.add(callback);
   }
 
   unsubscribe(uri: string, callback: (resource: any) => void): void {

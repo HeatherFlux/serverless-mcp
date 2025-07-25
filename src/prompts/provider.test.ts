@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { InvalidParamsError, PromptNotFoundError } from '../core/errors.js';
 import { McpPromptProvider, PromptUtils } from './provider.js';
 import { DefaultPromptRegistry } from './registry.js';
-import { PromptNotFoundError, InvalidParamsError } from '../core/errors.js';
 import type { PromptDefinition } from './types.js';
 
 describe('McpPromptProvider', () => {

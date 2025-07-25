@@ -1,7 +1,7 @@
 import { createInterface } from 'node:readline';
-import type { JsonRpcMessage } from '../core/types.js';
 import { ParseError } from '../core/errors.js';
-import type { Transport, StdioTransportOptions, TransportMetrics } from './types.js';
+import type { JsonRpcMessage } from '../core/types.js';
+import type { StdioTransportOptions, Transport, TransportMetrics } from './types.js';
 
 export class StdioTransport implements Transport {
   private messageHandler?: (message: JsonRpcMessage) => void;
@@ -95,7 +95,7 @@ export class StdioTransport implements Transport {
       this.metrics.bytesSent += Buffer.byteLength(serialized, this.encoding);
 
       await new Promise<void>((resolve, reject) => {
-        this.stdout.write(serialized + '\n', this.encoding, (error) => {
+        this.stdout.write(`${serialized}\n`, this.encoding, (error) => {
           if (error) {
             this.metrics.errors++;
             reject(error);

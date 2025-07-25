@@ -1,16 +1,16 @@
+import { InvalidParamsError, ToolExecutionError } from '../core/errors.js';
 import type { ToolProvider } from '../core/server.js';
 import type { McpTool } from '../core/types.js';
-import { ToolExecutionError, InvalidParamsError } from '../core/errors.js';
-import type {
-  ToolRegistry,
-  ToolDefinition,
-  ToolMiddleware,
-  ToolExecutionContext,
-  ToolOptions,
-} from './types.js';
-import { DefaultToolRegistry } from './registry.js';
-import { ToolValidator } from './validation.js';
 import { ToolMiddlewareChain } from './middleware.js';
+import { DefaultToolRegistry } from './registry.js';
+import type {
+  ToolDefinition,
+  ToolExecutionContext,
+  ToolMiddleware,
+  ToolOptions,
+  ToolRegistry,
+} from './types.js';
+import { ToolValidator } from './validation.js';
 
 export class McpToolProvider implements ToolProvider {
   private registry: ToolRegistry;

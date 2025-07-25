@@ -10,9 +10,10 @@ export interface StreamifyResponse {
   end?: () => void;
 }
 
-export interface LambdaStreamingHandler {
-  (event: APIGatewayProxyEvent, context: Context): Promise<StreamifyResponse> | StreamifyResponse;
-}
+export type LambdaStreamingHandler = (
+  event: APIGatewayProxyEvent,
+  context: Context,
+) => Promise<StreamifyResponse> | StreamifyResponse;
 
 export interface LambdaTransportOptions {
   cors?: {

@@ -23,13 +23,13 @@ export function getPromptMetadata(target: any): PromptMetadata {
 }
 
 export function prompt(options: PromptOptions = {}) {
-  return function (target: any, propertyKey: string, descriptor?: PropertyDescriptor) {
+  return (target: any, propertyKey: string, descriptor?: PropertyDescriptor) => {
     // Handle both legacy and modern decorator APIs
     const originalMethod = descriptor?.value ?? target[propertyKey];
     const promptName = options.name ?? propertyKey;
 
     if (typeof originalMethod !== 'function') {
-      throw new Error(`@prompt can only be applied to methods`);
+      throw new Error('@prompt can only be applied to methods');
     }
 
     // Store prompt metadata
@@ -47,7 +47,7 @@ export function prompt(options: PromptOptions = {}) {
 }
 
 export function promptArg(name: string, description?: string, required = false) {
-  return function (options: PromptOptions = {}): PromptOptions {
+  return (options: PromptOptions = {}): PromptOptions => {
     const args = options.arguments || [];
     args.push({
       name,

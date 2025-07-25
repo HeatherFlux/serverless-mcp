@@ -1,11 +1,11 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   ToolMiddlewareChain,
-  createTimingMiddleware,
   createLoggingMiddleware,
-  createTimeoutMiddleware,
   createRateLimitMiddleware,
   createSecurityMiddleware,
+  createTimeoutMiddleware,
+  createTimingMiddleware,
 } from './middleware.js';
 import type { ToolExecutionContext } from './types.js';
 

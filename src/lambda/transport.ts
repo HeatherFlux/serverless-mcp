@@ -2,10 +2,10 @@ import type { APIGatewayProxyEvent, Context } from 'aws-lambda';
 import type { JsonRpcMessage } from '../core/types.js';
 import type { Transport, TransportMetrics } from '../transports/types.js';
 import type {
-  LambdaTransportOptions,
-  StreamifyResponse,
   LambdaInvocationContext,
   LambdaMcpEvent,
+  LambdaTransportOptions,
+  StreamifyResponse,
 } from './types.js';
 
 // AWS Lambda streaming types

@@ -87,9 +87,9 @@ export class ToolValidator {
       // Basic type validation
       if (propSchema.type) {
         const expectedType = propSchema.type;
-        const actualType = this.getJavaScriptType(argValue);
+        const actualType = ToolValidator.getJavaScriptType(argValue);
 
-        if (!this.isTypeCompatible(actualType, expectedType, argValue)) {
+        if (!ToolValidator.isTypeCompatible(actualType, expectedType, argValue)) {
           errors.push(`Parameter ${argName} expected type ${expectedType}, got ${actualType}`);
         }
       }
@@ -173,7 +173,7 @@ export class ToolValidator {
           sanitized[key] = value.trim();
         } else if (typeof value === 'object' && !Array.isArray(value)) {
           // Recursively sanitize objects
-          sanitized[key] = this.sanitizeArgs(value as Record<string, unknown>);
+          sanitized[key] = ToolValidator.sanitizeArgs(value as Record<string, unknown>);
         } else {
           sanitized[key] = value;
         }

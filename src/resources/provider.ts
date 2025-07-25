@@ -1,14 +1,14 @@
+import { InvalidParamsError, ResourceNotFoundError } from '../core/errors.js';
 import type { ResourceProvider } from '../core/server.js';
 import type { McpResource, McpResourceContents } from '../core/types.js';
-import { ResourceNotFoundError, InvalidParamsError } from '../core/errors.js';
-import type {
-  ResourceRegistry,
-  ResourceDefinition,
-  ResourceCache,
-  ResourceOptions,
-} from './types.js';
-import { DefaultResourceRegistry } from './registry.js';
 import { MemoryResourceCache } from './cache.js';
+import { DefaultResourceRegistry } from './registry.js';
+import type {
+  ResourceCache,
+  ResourceDefinition,
+  ResourceOptions,
+  ResourceRegistry,
+} from './types.js';
 
 export class McpResourceProvider implements ResourceProvider {
   private registry: ResourceRegistry;

@@ -1,13 +1,14 @@
 import { z } from 'zod';
+import { InvalidRequestError, McpError, ParseError } from './errors.js';
 import type {
+  ErrorCode,
   JsonRpcMessage,
+  JsonRpcNotification,
   JsonRpcRequest,
   JsonRpcResponse,
-  JsonRpcNotification,
   McpCapabilities,
 } from './types.js';
-import { JsonRpcRequestSchema, JsonRpcResponseSchema, JsonRpcNotificationSchema } from './types.js';
-import { ParseError, InvalidRequestError, McpError } from './errors.js';
+import { JsonRpcNotificationSchema, JsonRpcRequestSchema, JsonRpcResponseSchema } from './types.js';
 
 export interface Transport {
   send(message: JsonRpcMessage): Promise<void>;
@@ -98,38 +99,55 @@ export class McpProtocol {
 
   private async handleMessage(message: JsonRpcMessage): Promise<void> {
     try {
-      if ('id' in message && 'method' in message) {
-        // Request
-        const request = JsonRpcRequestSchema.parse(message);
-        await this.handleRequest(request);
-      } else if ('id' in message && ('result' in message || 'error' in message)) {
-        // Response
-        const response = JsonRpcResponseSchema.parse(message);
-        this.handleResponse(response);
-      } else if ('method' in message) {
-        // Notification
-        const notification = JsonRpcNotificationSchema.parse(message);
-        await this.handleNotification(notification);
-      } else {
-        throw new InvalidRequestError('Invalid message format');
-      }
+      await this.processMessage(message);
     } catch (error) {
-      if (error instanceof z.ZodError) {
-        await this.sendErrorResponse(null, new ParseError('Invalid JSON-RPC message', error));
-      } else if (error instanceof McpError) {
-        const id = 'id' in message ? message.id : null;
-        await this.sendErrorResponse(id, error);
-      } else {
-        const id = 'id' in message ? message.id : null;
-        await this.sendErrorResponse(
-          id,
-          new McpError(
-            -32603 as any,
-            'Internal error',
-            error instanceof Error ? error.message : String(error),
-          ),
-        );
-      }
+      await this.handleMessageError(message, error);
+    }
+  }
+
+  private async processMessage(message: JsonRpcMessage): Promise<void> {
+    if (this.isRequest(message)) {
+      const request = JsonRpcRequestSchema.parse(message);
+      await this.handleRequest(request);
+    } else if (this.isResponse(message)) {
+      const response = JsonRpcResponseSchema.parse(message);
+      this.handleResponse(response);
+    } else if (this.isNotification(message)) {
+      const notification = JsonRpcNotificationSchema.parse(message);
+      await this.handleNotification(notification);
+    } else {
+      throw new InvalidRequestError('Invalid message format');
+    }
+  }
+
+  private isRequest(message: JsonRpcMessage): boolean {
+    return 'id' in message && 'method' in message;
+  }
+
+  private isResponse(message: JsonRpcMessage): boolean {
+    return 'id' in message && ('result' in message || 'error' in message);
+  }
+
+  private isNotification(message: JsonRpcMessage): boolean {
+    return 'method' in message && !('id' in message);
+  }
+
+  private async handleMessageError(message: JsonRpcMessage, error: unknown): Promise<void> {
+    if (error instanceof z.ZodError) {
+      await this.sendErrorResponse(null, new ParseError('Invalid JSON-RPC message', error));
+    } else if (error instanceof McpError) {
+      const id = 'id' in message ? message.id : null;
+      await this.sendErrorResponse(id, error);
+    } else {
+      const id = 'id' in message ? message.id : null;
+      await this.sendErrorResponse(
+        id,
+        new McpError(
+          -32603 as ErrorCode,
+          'Internal error',
+          error instanceof Error ? error.message : String(error),
+        ),
+      );
     }
   }
 
@@ -173,7 +191,7 @@ export class McpProtocol {
 
     if (response.error) {
       pending.reject(
-        new McpError(response.error.code as any, response.error.message, response.error.data),
+        new McpError(response.error.code as ErrorCode, response.error.message, response.error.data),
       );
     } else {
       pending.resolve(response.result);

@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { getPromptMetadata, PromptHandler } from './decorators.js';
+import { describe, expect, it } from 'vitest';
+import { PromptHandler, getPromptMetadata } from './decorators.js';
 
 describe('Prompt Decorators', () => {
   describe('metadata management', () => {

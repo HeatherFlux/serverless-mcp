@@ -25,11 +25,11 @@ export function getResourceMetadata(target: any): ResourceMetadata {
 }
 
 export function resource(options: ResourceOptions = {}) {
-  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
     const originalMethod = descriptor.value;
 
     if (typeof originalMethod !== 'function') {
-      throw new Error(`@resource can only be applied to methods`);
+      throw new Error('@resource can only be applied to methods');
     }
 
     // Generate URI if not provided

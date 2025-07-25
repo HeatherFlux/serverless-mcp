@@ -1,6 +1,6 @@
-import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
+import { type IncomingMessage, type ServerResponse, createServer } from 'node:http';
 import type { JsonRpcMessage } from '../core/types.js';
-import type { Transport, HttpTransportOptions, TransportMetrics } from './types.js';
+import type { HttpTransportOptions, Transport, TransportMetrics } from './types.js';
 
 export class HttpStreamingTransport implements Transport {
   private messageHandler?: (message: JsonRpcMessage) => void;
@@ -233,7 +233,7 @@ export class HttpStreamingTransport implements Transport {
     // Close server
     if (this.server) {
       return new Promise<void>((resolve) => {
-        this.server!.close(() => {
+        this.server?.close(() => {
           resolve();
         });
       });

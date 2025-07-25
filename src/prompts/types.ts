@@ -1,4 +1,4 @@
-import type { McpPrompt, McpPromptMessage, McpPromptArgument } from '../core/types.js';
+import type { McpPrompt, McpPromptArgument, McpPromptMessage } from '../core/types.js';
 
 export interface PromptDefinition {
   name: string;

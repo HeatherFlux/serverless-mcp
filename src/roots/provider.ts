@@ -1,8 +1,8 @@
+import { InvalidParamsError } from '../core/errors.js';
 import type { RootProvider } from '../core/server.js';
 import type { McpRoot } from '../core/types.js';
-import { InvalidParamsError } from '../core/errors.js';
-import type { RootRegistry, RootDefinition, RootOptions } from './types.js';
 import { DefaultRootRegistry } from './registry.js';
+import type { RootDefinition, RootOptions, RootRegistry } from './types.js';
 
 export class McpRootProvider implements RootProvider {
   private registry: RootRegistry;

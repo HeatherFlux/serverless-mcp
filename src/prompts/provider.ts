@@ -1,8 +1,8 @@
+import { InvalidParamsError, PromptNotFoundError } from '../core/errors.js';
 import type { PromptProvider } from '../core/server.js';
 import type { McpPrompt, McpPromptMessage } from '../core/types.js';
-import { PromptNotFoundError, InvalidParamsError } from '../core/errors.js';
-import type { PromptRegistry, PromptDefinition } from './types.js';
 import { DefaultPromptRegistry } from './registry.js';
+import type { PromptDefinition, PromptRegistry } from './types.js';
 import { PromptValidator } from './validation.js';
 
 export class McpPromptProvider implements PromptProvider {
