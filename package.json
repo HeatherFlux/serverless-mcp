@@ -1,6 +1,6 @@
 {
   "name": "serverless-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A modern TypeScript package implementing the Model Context Protocol with modular architecture and AWS Lambda streaming support",
   "type": "module",
   "main": "./dist/index.js",
