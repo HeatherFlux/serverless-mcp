@@ -44,3 +44,9 @@ Thumbs.db
 # AWS
 .aws-sam/
 samconfig.toml
+
+# Claude Code
+.claude/
+.claude-code/
+claude-code-session/
+.mcp/

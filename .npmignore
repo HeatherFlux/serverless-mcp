@@ -1,0 +1,59 @@
+# Source files (only publish dist)
+src/
+examples/
+
+# Test files
+*.test.ts
+*.test.js
+*.spec.ts
+*.spec.js
+vitest.config.ts
+coverage/
+
+# Development files
+.github/
+.vscode/
+.idea/
+.claude/
+.claude-code/
+claude-code-session/
+.mcp/
+
+# Config files (keep package.json and necessary configs)
+tsconfig.json
+biome.json
+pnpm-workspace.yaml
+pnpm-lock.yaml
+
+# Documentation (keep README.md)
+CLAUDE.md
+CONTRIBUTING.md
+
+# Build artifacts we don't want
+*.tsbuildinfo
+.cache/
+
+# Environment and logs
+.env*
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git files
+.git/
+.gitignore
+
+# AWS/Serverless
+.aws-sam/
+samconfig.toml
+
+# Temporary files
+*.tmp
+*.temp
+tmp/
+temp/

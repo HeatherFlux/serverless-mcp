@@ -39,11 +39,17 @@
       "types": "./dist/lambda/index.d.ts"
     }
   },
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE",
+    "package.json"
+  ],
   "scripts": {
     "build": "esbuild src/index.ts --bundle --platform=node --target=node22 --format=esm --outfile=dist/index.js --external:@aws-sdk/* --external:aws-lambda",
-    "build:all": "pnpm run build:types && pnpm run build:esm",
-    "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist",
-    "build:esm": "esbuild src/**/*.ts --platform=node --target=node18 --format=esm --outdir=dist",
+    "build:all": "npm run build:types && npm run build:esm",
+    "build:types": "tsc -p tsconfig.build.json",
+    "build:esm": "esbuild $(find src -name '*.ts' -not -name '*.test.ts' | tr '\\n' ' ') --platform=node --target=node22 --format=esm --outdir=dist",
     "dev": "tsx watch src/index.ts",
     "test": "vitest run && pnpm tsc --noEmit && pnpm lint",
     "test:watch": "vitest",
@@ -52,7 +58,9 @@
     "lint:fix": "biome check --write src",
     "format": "biome format --write src",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build:all",
+    "prepack": "npm run build:all"
   },
   "keywords": [
     "mcp",
