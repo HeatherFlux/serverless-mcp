@@ -10,7 +10,6 @@
     "moduleDetection": "force",
     "noEmit": true,
     "composite": true,
-
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,

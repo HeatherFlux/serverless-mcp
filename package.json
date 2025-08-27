@@ -1,6 +1,6 @@
 {
   "name": "serverless-mcp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A modern TypeScript package implementing the Model Context Protocol with modular architecture and AWS Lambda streaming support",
   "type": "module",
   "main": "./dist/index.js",
@@ -46,7 +46,7 @@
     "package.json"
   ],
   "scripts": {
-    "build": "esbuild src/index.ts --bundle --platform=node --target=node22 --format=esm --outfile=dist/index.js --external:@aws-sdk/* --external:aws-lambda",
+    "build": "npm run clean && npm run build:types && npm run build:esm",
     "build:all": "npm run build:types && npm run build:esm",
     "build:types": "tsc -p tsconfig.build.json",
     "build:esm": "esbuild $(find src -name '*.ts' -not -name '*.test.ts' | tr '\\n' ' ') --platform=node --target=node22 --format=esm --outdir=dist",
